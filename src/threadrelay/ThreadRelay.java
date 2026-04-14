@@ -14,7 +14,9 @@ public class ThreadRelay {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        GestoreGara gestore=new GestoreGara();
+        
+        gestore.show();
     }
     
 }
