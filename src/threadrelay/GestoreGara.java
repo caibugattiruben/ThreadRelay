@@ -10,8 +10,22 @@ package threadrelay;
  */
 public class GestoreGara {
     FormGara gara=new FormGara(this);
+
+    private int currentThread;
     
     public void show(){
         gara.setVisible(true);
+    }
+    
+    public void avvio(){
+
+    }
+    
+    public void startThread(){
+
+    }
+    
+    public void setMtThread(int m){
+        gara.aggNum(currentThread,m);
     }
 }

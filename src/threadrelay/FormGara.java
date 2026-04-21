@@ -5,12 +5,16 @@
 package threadrelay;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -22,6 +26,7 @@ public class FormGara extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormGara.class.getName());
     
     GestoreGara g;
+    JLabel[] lCorridori=new JLabel[4];
     /**
      * Creates new form FormGara
      */
@@ -50,8 +55,20 @@ public class FormGara extends javax.swing.JFrame {
         };
         panelGara.setOpaque(false);
         
-        panelGara.setLayout(new GridBagLayout());
-        GridBagConstraints gbcSopra=new GridBagConstraints();
+        //--------------panel corridori--------------
+        JPanel corridori=new JPanel();
+        corridori.setOpaque(false);
+        
+        corridori.setLayout(new GridLayout(4,1,10,10));
+        for(int i=0;i<4;i++){
+            lCorridori[i]=new JLabel("0");
+            corridori.add(lCorridori[i]);
+        }
+        
+        
+        panelGara.setLayout(new BorderLayout());
+        panelGara.add(corridori);
+        //GridBagConstraints gbcSopra=new GridBagConstraints();
 
         //AGGIUNGO PANEL GARA AL PANEL PRINCIPALE
         gbc.gridy=0;
@@ -70,6 +87,20 @@ public class FormGara extends javax.swing.JFrame {
         };
         panelBottoni.setOpaque(false);
         
+        panelBottoni.setLayout(new GridLayout(1,4,10,10));
+        
+        JButton avvia=new JButton("AVVIA");
+        avvia.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.avvio();
+            }
+        });
+        panelBottoni.add(avvia);
+        for(int i=0;i<3;i++){
+            panelBottoni.add(new JLabel());
+        }
+        
         //AGGIUNGO PANEL PULSANTI AL PANEL PRINCIPALE
         gbc.gridy=1;
         gbc.weighty=0.2;
@@ -82,6 +113,9 @@ public class FormGara extends javax.swing.JFrame {
         
     }
 
+    public void aggNum(int pos,int m){
+        lCorridori[pos].setText(String.valueOf(m));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
