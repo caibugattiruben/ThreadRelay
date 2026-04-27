@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 /**
  *
@@ -26,7 +27,7 @@ public class FormGara extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormGara.class.getName());
     
     GestoreGara g;
-    JLabel[] lCorridori=new JLabel[4];
+    JProgressBar[] lCorridori=new JProgressBar[4];
     /**
      * Creates new form FormGara
      */
@@ -45,8 +46,8 @@ public class FormGara extends javax.swing.JFrame {
         gbc.fill = GridBagConstraints.BOTH;
         
         //---------------------------------------PANEL GARA---------------------------------------
-        JPanel panelGara=new JPanel(){
-            Image immagine=new ImageIcon("immagini/sfondoGara.png").getImage();
+        JPanel panelGara = new JPanel() {
+            Image immagine = new ImageIcon("immagini/sfondoGara.png").getImage();
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -54,27 +55,25 @@ public class FormGara extends javax.swing.JFrame {
             }
         };
         panelGara.setOpaque(false);
-        
-        //--------------panel corridori--------------
-        JPanel corridori=new JPanel();
+
+        JPanel corridori = new JPanel();
         corridori.setOpaque(false);
-        
-        corridori.setLayout(new GridLayout(4,1,10,10));
-        for(int i=0;i<4;i++){
-            lCorridori[i]=new JLabel("0");
+        corridori.setLayout(new GridLayout(4, 1, 10, 10));
+
+        for (int i = 0; i < 4; i++) {
+            lCorridori[i] = new JProgressBar(0, 100);
+            lCorridori[i].setStringPainted(true);
+            lCorridori[i].setValue(0);
             corridori.add(lCorridori[i]);
         }
-        
-        
+
         panelGara.setLayout(new BorderLayout());
         panelGara.add(corridori);
-        //GridBagConstraints gbcSopra=new GridBagConstraints();
 
-        //AGGIUNGO PANEL GARA AL PANEL PRINCIPALE
-        gbc.gridy=0;
-        gbc.weighty=0.8;
-        
-        panel.add(panelGara,gbc);
+        gbc.gridy = 0;
+        gbc.weighty = 0.8;
+
+        panel.add(panelGara, gbc);
         
         //---------------------------------------PANEL BOTTONI---------------------------------------
         JPanel panelBottoni=new JPanel(){
@@ -114,7 +113,7 @@ public class FormGara extends javax.swing.JFrame {
     }
 
     public void aggNum(int pos,int m){
-        lCorridori[pos].setText(String.valueOf(m));
+        lCorridori[pos].setValue(m);
     }
     /**
      * This method is called from within the constructor to initialize the form.

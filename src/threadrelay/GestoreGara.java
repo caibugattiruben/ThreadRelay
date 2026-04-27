@@ -10,22 +10,30 @@ package threadrelay;
  */
 public class GestoreGara {
     FormGara gara=new FormGara(this);
-
-    private int currentThread;
+    bastoncino stecco=new bastoncino();
+    
+    private int currentThread=0;
     
     public void show(){
         gara.setVisible(true);
     }
     
     public void avvio(){
-
+        for(int i=0;i<4;i++){
+            Atleta a=new Atleta(this,i,stecco);
+            a.start();
+        }
     }
     
-    public void startThread(){
-
+    public int getCurrentThread(){
+        return currentThread;
     }
     
-    public void setMtThread(int m){
-        gara.aggNum(currentThread,m);
+    public void next(){
+        this.currentThread=currentThread+1;
+    }
+    
+    public void setMtThread(int m,int id){
+        gara.aggNum(id,m);
     }
 }
