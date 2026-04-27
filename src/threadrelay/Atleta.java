@@ -21,20 +21,22 @@ public class Atleta extends Thread{
     
     @Override
     public void run(){
-        while(true){
+        boolean corro=true,presoStecco=false;
+        while(corro){
             synchronized(stecco){
                 if(g.getCurrentThread()==id && stecco.stato()==false){
                     stecco.prendo();
-                    for(int i=0;i<101;i++){
+                    presoStecco=true;
+                    for(int i=0;i<90;i++){
                         g.setMtThread(i,id);
                         try {
                             Thread.sleep(20);
                         } catch (InterruptedException ex) {
                         }
                     }
-                    g.next();
-                    stecco.lascio();
-                    stecco.notifyAll();
+                    g.next();          
+                    stecco.lascio();   
+                    stecco.notifyAll(); 
                 }
                 else{
                     try {
@@ -43,8 +45,19 @@ public class Atleta extends Thread{
                     }
                 }
             }
+            
+            if(presoStecco==true){
+                for(int i=90;i<101;i++){
+                    g.setMtThread(i,id);
+                    try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException ex) {
+                    }
+                }
+                corro=false;
+            }
+            
         }
-        
         
     }
 }
