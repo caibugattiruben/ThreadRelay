@@ -4,8 +4,6 @@
  */
 package threadrelay;
 
-import java.awt.List;
-import java.util.ArrayList;
 
 /**
  *
@@ -16,11 +14,13 @@ public class Atleta extends Thread implements Subject{
     private bastoncino stecco;
     private int id;
     private Observer obsGrafica;
+    private int vel;
     
-    public Atleta(GestoreGara ge,int i,bastoncino b){
+    public Atleta(GestoreGara ge,int i,bastoncino b,int vel){
         this.g=ge;
         this.id=i;
         this.stecco=b;
+        this.vel=vel;
     }
     
     @Override
@@ -34,11 +34,11 @@ public class Atleta extends Thread implements Subject{
                     for(int i=0;i<90;i++){
                         notifyObservers(i,id);
                         try {
-                            Thread.sleep(20);
+                            Thread.sleep(vel);
                         } catch (InterruptedException ex) {
                         }
                     }
-                    g.next();          
+                    notifyNext();          
                     stecco.lascio();   
                     stecco.notifyAll(); 
                 }
@@ -46,6 +46,7 @@ public class Atleta extends Thread implements Subject{
                     try {
                         stecco.wait();
                     } catch (InterruptedException ex) {
+                        break;
                     }
                 }
             }
@@ -54,10 +55,16 @@ public class Atleta extends Thread implements Subject{
                 for(int i=90;i<101;i++){
                     notifyObservers(i,id);
                     try {
-                        Thread.sleep(20);
+                        Thread.sleep(vel);
                     } catch (InterruptedException ex) {
+                        break;
                     }
                 }
+                
+                if(id==3){
+                       ready();  
+                }
+                
                 removeObserverGrafica(g);
                 corro=false;
             }
@@ -79,8 +86,22 @@ public class Atleta extends Thread implements Subject{
     @Override
     public void notifyObservers(int valore,int pos){
         Observer copia = obsGrafica;
-        
+
         copia.update(valore,pos);
     };
     
+    @Override
+    public void notifyNext(){
+        Observer copia = obsGrafica;
+
+        copia.next();
+    };
+    
+    @Override
+    public void ready(){
+        Observer copia = obsGrafica;
+
+        copia.ready();
+    };
+
 }

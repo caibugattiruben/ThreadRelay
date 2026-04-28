@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -28,6 +29,8 @@ public class FormGara extends javax.swing.JFrame{
     
     GestoreGara g;
     JProgressBar[] lCorridori=new JProgressBar[4];
+    JButton avvia;
+    JComboBox combo;
     /**
      * Creates new form FormGara
      */
@@ -86,15 +89,36 @@ public class FormGara extends javax.swing.JFrame{
         };
         panelBottoni.setOpaque(false);
         
-        panelBottoni.setLayout(new GridLayout(1,4,10,10));
+        panelBottoni.setLayout(new GridLayout(1,5,10,10));
         
-        JButton avvia=new JButton("AVVIA");
+        combo=new JComboBox();
+        combo.addItem("Slow");
+        combo.addItem("Medium");
+        combo.addItem("Fast");
+        
+        
+        avvia=new JButton("AVVIA");
         avvia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                g.avvio();
+                String vel=String.valueOf(combo.getSelectedItem());
+                
+                if(vel.equals("Slow")){
+                    avvio(100);
+                }
+                else if(vel.equals("Medium")){
+                    avvio(60);
+                }
+                else{
+                    avvio(20);
+                }
+                
+                avvia.setEnabled(false);
+                combo.setEnabled(false);
             }
         });
+        
+        panelBottoni.add(combo);
         panelBottoni.add(avvia);
         for(int i=0;i<3;i++){
             panelBottoni.add(new JLabel());
@@ -112,8 +136,25 @@ public class FormGara extends javax.swing.JFrame{
         
     }
 
-    public void aggNum(int pos,int m){
+    public void aggNum(int m,int pos){
         lCorridori[pos].setValue(m);
+    }
+    
+    public void avvio(int v){
+        reset();
+        
+        g.avvio(v);
+    }
+    
+    public void reset(){
+        for(int i=0;i<4;i++){
+            lCorridori[i].setValue(0);
+        }
+    }
+    
+    public void pronto(){
+        avvia.setEnabled(true);
+        combo.setEnabled(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.

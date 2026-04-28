@@ -13,4 +13,6 @@ public interface Subject {
     void addObserverGrafica(Observer o);
     void removeObserverGrafica(Observer o);
     void notifyObservers(int valore,int pos);
+    void notifyNext();
+    void ready();
 }

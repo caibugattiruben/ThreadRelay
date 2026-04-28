@@ -4,11 +4,14 @@
  */
 package threadrelay;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author caibugatti.ruben
  */
 public class GestoreGara  implements Observer{
+    private ArrayList<Atleta> atletiAttivi = new ArrayList<>();
     FormGara gara=new FormGara(this);
     bastoncino stecco=new bastoncino();
     
@@ -18,10 +21,22 @@ public class GestoreGara  implements Observer{
         gara.setVisible(true);
     }
     
-    public void avvio(){
-        for(int i=0;i<4;i++){
-            Atleta a=new Atleta(this,i,stecco);
+    public void start(){
+        
+    }
+    public void avvio(int vel){
+        for (Atleta a : atletiAttivi) {
+            a.interrupt();
+        }
+        atletiAttivi.clear();
+        
+        stecco.lascio();
+        this.currentThread = 0;
+
+        for(int i = 0; i < 4; i++){
+            Atleta a = new Atleta(this, i, stecco, vel);
             a.addObserverGrafica(this);
+            atletiAttivi.add(a);
             a.start();
         }
     }
@@ -30,16 +45,26 @@ public class GestoreGara  implements Observer{
         return currentThread;
     }
     
-    public void next(){
+    public void nextGara(){
         this.currentThread=currentThread+1;
     }
     
     public void setMtThread(int m,int id){
-        gara.aggNum(id,m);
+        gara.aggNum(m,id);
     }
     
     @Override
     public void update(int valore,int pos) {
-        setMtThread(pos,valore);
+        setMtThread(valore,pos);
+    }
+    
+    @Override
+    public void next(){
+        nextGara();
+    }
+    
+    @Override
+    public void ready(){
+        gara.pronto();
     }
 }

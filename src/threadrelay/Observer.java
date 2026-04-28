@@ -12,4 +12,6 @@ package threadrelay;
 public interface Observer {
     
     void update(int valore,int pos);
+    void next();
+    void ready();
 }
