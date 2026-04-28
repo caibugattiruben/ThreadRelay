@@ -4,14 +4,18 @@
  */
 package threadrelay;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 /**
  *
  * @author caibugatti.ruben
  */
-public class Atleta extends Thread{
+public class Atleta extends Thread implements Subject{
     private GestoreGara g;
     private bastoncino stecco;
     private int id;
+    private Observer obsGrafica;
     
     public Atleta(GestoreGara ge,int i,bastoncino b){
         this.g=ge;
@@ -28,7 +32,7 @@ public class Atleta extends Thread{
                     stecco.prendo();
                     presoStecco=true;
                     for(int i=0;i<90;i++){
-                        g.setMtThread(i,id);
+                        notifyObservers(i,id);
                         try {
                             Thread.sleep(20);
                         } catch (InterruptedException ex) {
@@ -48,16 +52,35 @@ public class Atleta extends Thread{
             
             if(presoStecco==true){
                 for(int i=90;i<101;i++){
-                    g.setMtThread(i,id);
+                    notifyObservers(i,id);
                     try {
                         Thread.sleep(20);
                     } catch (InterruptedException ex) {
                     }
                 }
+                removeObserverGrafica(g);
                 corro=false;
             }
             
         }
         
     }
+    
+    @Override
+    public void addObserverGrafica(Observer o){
+        obsGrafica=o;
+    };
+    
+    @Override
+    public void removeObserverGrafica(Observer o){
+        obsGrafica=null;
+    };
+    
+    @Override
+    public void notifyObservers(int valore,int pos){
+        Observer copia = obsGrafica;
+        
+        copia.update(valore,pos);
+    };
+    
 }

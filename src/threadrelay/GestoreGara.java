@@ -8,7 +8,7 @@ package threadrelay;
  *
  * @author caibugatti.ruben
  */
-public class GestoreGara {
+public class GestoreGara  implements Observer{
     FormGara gara=new FormGara(this);
     bastoncino stecco=new bastoncino();
     
@@ -21,6 +21,7 @@ public class GestoreGara {
     public void avvio(){
         for(int i=0;i<4;i++){
             Atleta a=new Atleta(this,i,stecco);
+            a.addObserverGrafica(this);
             a.start();
         }
     }
@@ -35,5 +36,10 @@ public class GestoreGara {
     
     public void setMtThread(int m,int id){
         gara.aggNum(id,m);
+    }
+    
+    @Override
+    public void update(int valore,int pos) {
+        setMtThread(pos,valore);
     }
 }

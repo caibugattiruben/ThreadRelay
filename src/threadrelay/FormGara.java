@@ -22,7 +22,7 @@ import javax.swing.JProgressBar;
  *
  * @author caibugatti.ruben
  */
-public class FormGara extends javax.swing.JFrame {
+public class FormGara extends javax.swing.JFrame{
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormGara.class.getName());
     
@@ -164,6 +164,8 @@ public class FormGara extends javax.swing.JFrame {
         /* Create and display the form */
         
     }
+
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
