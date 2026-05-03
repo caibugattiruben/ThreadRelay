@@ -15,6 +15,7 @@ public class Atleta extends Thread implements Subject{
     private int id;
     private Observer obsGrafica;
     private int vel;
+    private boolean sospeso=false;
     
     public Atleta(GestoreGara ge,int i,bastoncino b,int vel){
         this.g=ge;
@@ -32,6 +33,14 @@ public class Atleta extends Thread implements Subject{
                     stecco.prendo();
                     presoStecco=true;
                     for(int i=0;i<90;i++){
+                        synchronized(this){
+                            while(sospeso){
+                                try {
+                                    this.wait();
+                                } catch (Exception e) {
+                                }
+                            }
+                        }
                         notifyObservers(i,id);
                         try {
                             Thread.sleep(vel);
@@ -50,9 +59,17 @@ public class Atleta extends Thread implements Subject{
                     }
                 }
             }
-            
+
             if(presoStecco==true){
                 for(int i=90;i<101;i++){
+                    synchronized(this){
+                        while(sospeso){
+                            try {
+                                this.wait();
+                            } catch (Exception e) {
+                            }
+                        }
+                    }
                     notifyObservers(i,id);
                     try {
                         Thread.sleep(vel);
@@ -60,15 +77,14 @@ public class Atleta extends Thread implements Subject{
                         break;
                     }
                 }
-                
+
                 if(id==3){
                        ready();  
                 }
-                
+
                 removeObserverGrafica(g);
                 corro=false;
             }
-            
         }
         
     }
@@ -103,5 +119,19 @@ public class Atleta extends Thread implements Subject{
 
         copia.ready();
     };
+    
+    @Override
+    public void sospeso(){
+        this.sospeso=true;
+    };
+    
+    @Override
+    public void sospesoFine(){
+        synchronized (this) { 
+            this.sospeso = false;
+            this.notifyAll(); 
+        }
+    };
 
+   
 }

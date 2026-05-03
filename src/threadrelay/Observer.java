@@ -14,4 +14,5 @@ public interface Observer {
     void update(int valore,int pos);
     void next();
     void ready();
+    void sospenzione(boolean tipo);
 }

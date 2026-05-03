@@ -67,4 +67,15 @@ public class GestoreGara  implements Observer{
     public void ready(){
         gara.pronto();
     }
+    
+    @Override
+    public void sospenzione(boolean tipo){
+        if(tipo==true){
+            atletiAttivi.get(currentThread).sospeso();
+        }
+        else{
+            atletiAttivi.get(currentThread).sospesoFine();
+        }
+    }
+    
 }

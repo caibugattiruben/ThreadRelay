@@ -29,7 +29,7 @@ public class FormGara extends javax.swing.JFrame{
     
     GestoreGara g;
     JProgressBar[] lCorridori=new JProgressBar[4];
-    JButton avvia;
+    JButton avvia,interrompi,riprendi,azzera;
     JComboBox combo;
     /**
      * Creates new form FormGara
@@ -118,11 +118,34 @@ public class FormGara extends javax.swing.JFrame{
             }
         });
         
+        
+        interrompi=new JButton("INTERROMPI");
+        interrompi.setEnabled(false);
+        interrompi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.sospenzione(true);
+            }
+        });
+        
+        riprendi=new JButton("RIPRENDI");
+        riprendi.setEnabled(false);
+        riprendi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.sospenzione(false);
+            }
+        });
+        
+        azzera=new JButton("AZZERA");
+        azzera.setEnabled(false);
+        
         panelBottoni.add(combo);
         panelBottoni.add(avvia);
-        for(int i=0;i<3;i++){
-            panelBottoni.add(new JLabel());
-        }
+        panelBottoni.add(interrompi);
+        panelBottoni.add(riprendi);
+        panelBottoni.add(azzera);
+        
         
         //AGGIUNGO PANEL PULSANTI AL PANEL PRINCIPALE
         gbc.gridy=1;
@@ -143,6 +166,9 @@ public class FormGara extends javax.swing.JFrame{
     public void avvio(int v){
         reset();
         
+        interrompi.setEnabled(true);
+        riprendi.setEnabled(true);
+        azzera.setEnabled(true);
         g.avvio(v);
     }
     
@@ -153,6 +179,10 @@ public class FormGara extends javax.swing.JFrame{
     }
     
     public void pronto(){
+        interrompi.setEnabled(false);
+        riprendi.setEnabled(false);
+        azzera.setEnabled(false);
+        
         avvia.setEnabled(true);
         combo.setEnabled(true);
     }

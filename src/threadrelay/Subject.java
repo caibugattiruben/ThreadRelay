@@ -15,4 +15,6 @@ public interface Subject {
     void notifyObservers(int valore,int pos);
     void notifyNext();
     void ready();
+    void sospeso();
+    void sospesoFine();
 }
