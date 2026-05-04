@@ -144,6 +144,20 @@ public class FormGara extends javax.swing.JFrame{
         
         azzera=new JButton("AZZERA");
         azzera.setEnabled(false);
+        azzera.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                interrompi.setEnabled(false);
+                riprendi.setEnabled(false);
+                azzera.setEnabled(false);
+                
+                avvia.setEnabled(true);
+                combo.setEnabled(true);
+                
+                g.fine();
+                reset();
+            }
+        });
         
         panelBottoni.add(combo);
         panelBottoni.add(avvia);

@@ -17,4 +17,5 @@ public interface Subject {
     void ready();
     void sospeso();
     void sospesoFine();
+    void fine();
 }

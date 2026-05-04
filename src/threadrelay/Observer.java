@@ -15,4 +15,5 @@ public interface Observer {
     void next();
     void ready();
     void sospensione(boolean tipo);
+    void fine();
 }

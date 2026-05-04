@@ -82,4 +82,10 @@ public class GestoreGara  implements Observer{
         }
     }
     
+    @Override
+    public void fine(){
+        for(Atleta atleta : atletiAttivi){
+            atleta.fine();
+        }
+    }
 }

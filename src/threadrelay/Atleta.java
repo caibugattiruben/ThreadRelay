@@ -38,6 +38,8 @@ public class Atleta extends Thread implements Subject{
                                 try {
                                     this.wait();
                                 } catch (InterruptedException e) {
+                                    Thread.currentThread().interrupt();
+                                    return;
                                 }
                             }
                         }
@@ -45,6 +47,8 @@ public class Atleta extends Thread implements Subject{
                         try {
                             Thread.sleep(vel);
                         } catch (InterruptedException ex) {
+                            Thread.currentThread().interrupt();
+                            return;
                         }
                     }
                     notifyNext();          
@@ -67,13 +71,16 @@ public class Atleta extends Thread implements Subject{
                             try {
                                 this.wait();
                             } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt();
+                                return;
                             }
                         }
                         notifyObservers(i,id);
                         try {
                             Thread.sleep(vel);
                         } catch (InterruptedException ex) {
-
+                            Thread.currentThread().interrupt();
+                            return;
                         }
                     }     
                 }
@@ -137,5 +144,9 @@ public class Atleta extends Thread implements Subject{
         }
     };
 
+    @Override
+    public void fine(){
+        this.interrupt();
+    };
    
 }
