@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
@@ -124,7 +123,10 @@ public class FormGara extends javax.swing.JFrame{
         interrompi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                g.sospenzione(true);
+                interrompi.setEnabled(false);
+                riprendi.setEnabled(true);
+                azzera.setEnabled(true);
+                g.sospensione(true);
             }
         });
         
@@ -133,7 +135,10 @@ public class FormGara extends javax.swing.JFrame{
         riprendi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                g.sospenzione(false);
+                interrompi.setEnabled(true);
+                riprendi.setEnabled(false);
+                azzera.setEnabled(false);
+                g.sospensione(false);
             }
         });
         
@@ -167,8 +172,7 @@ public class FormGara extends javax.swing.JFrame{
         reset();
         
         interrompi.setEnabled(true);
-        riprendi.setEnabled(true);
-        azzera.setEnabled(true);
+        
         g.avvio(v);
     }
     

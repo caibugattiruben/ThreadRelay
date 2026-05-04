@@ -37,7 +37,7 @@ public class Atleta extends Thread implements Subject{
                             while(sospeso){
                                 try {
                                     this.wait();
-                                } catch (Exception e) {
+                                } catch (InterruptedException e) {
                                 }
                             }
                         }
@@ -61,25 +61,26 @@ public class Atleta extends Thread implements Subject{
             }
 
             if(presoStecco==true){
-                for(int i=90;i<101;i++){
-                    synchronized(this){
+                synchronized(this){
+                   for(int i=90;i<101;i++){
                         while(sospeso){
                             try {
                                 this.wait();
-                            } catch (Exception e) {
+                            } catch (InterruptedException e) {
                             }
                         }
-                    }
-                    notifyObservers(i,id);
-                    try {
-                        Thread.sleep(vel);
-                    } catch (InterruptedException ex) {
-                        break;
-                    }
+                        notifyObservers(i,id);
+                        try {
+                            Thread.sleep(vel);
+                        } catch (InterruptedException ex) {
+
+                        }
+                    }     
                 }
+                
 
                 if(id==3){
-                       ready();  
+                    ready();  
                 }
 
                 removeObserverGrafica(g);
@@ -102,22 +103,25 @@ public class Atleta extends Thread implements Subject{
     @Override
     public void notifyObservers(int valore,int pos){
         Observer copia = obsGrafica;
-
-        copia.update(valore,pos);
+        if (copia != null) {
+            copia.update(valore,pos);
+        }
     };
     
     @Override
     public void notifyNext(){
         Observer copia = obsGrafica;
-
-        copia.next();
+        if (copia != null) {
+            copia.next();
+        }
     };
     
     @Override
     public void ready(){
         Observer copia = obsGrafica;
-
-        copia.ready();
+        if (copia != null) {
+            copia.ready();
+        }
     };
     
     @Override
