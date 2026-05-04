@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class GestoreGara  implements Observer{
     private ArrayList<Atleta> atletiAttivi = new ArrayList<>();
     FormGara gara=new FormGara(this);
-    bastoncino stecco=new bastoncino();
+    Bastoncino stecco=new Bastoncino();
     
     private int currentThread=0;
     

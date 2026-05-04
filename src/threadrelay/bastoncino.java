@@ -8,7 +8,7 @@ package threadrelay;
  *
  * @author ruben
  */
-public class bastoncino {
+public class Bastoncino {
     
     private boolean preso=false;
     

@@ -11,13 +11,13 @@ package threadrelay;
  */
 public class Atleta extends Thread implements Subject{
     private GestoreGara g;
-    private bastoncino stecco;
+    private Bastoncino stecco;
     private int id;
     private Observer obsGrafica;
     private int vel;
     private boolean sospeso=false;
     
-    public Atleta(GestoreGara ge,int i,bastoncino b,int vel){
+    public Atleta(GestoreGara ge,int i,Bastoncino b,int vel){
         this.g=ge;
         this.id=i;
         this.stecco=b;
